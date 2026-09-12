@@ -11,11 +11,13 @@ public class AddVectors : MonoBehaviour
         SpriteRenderer B= GetComponent<SpriteRenderer>(); ;
         R.color = Color.red;
         B.color = Color.blue;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
+        //Vector2 rPlusB = 
     }
 }
