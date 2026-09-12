@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class AddVectors : MonoBehaviour
 {
-    Transform rtransform;
-    Transform bTransform;
+    public Transform rtransform;
+    public Transform bTransform;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +18,6 @@ public class AddVectors : MonoBehaviour
     void Update()
     {
       
-        //Vector2 rPlusB = 
+        
     }
 }
