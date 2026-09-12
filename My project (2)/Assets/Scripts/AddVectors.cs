@@ -1,7 +1,7 @@
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//Dora Cheng 2026-9-12
+//Dora Cheng 
 public class AddVectors : MonoBehaviour
 {
     public Transform rTransform;
@@ -9,8 +9,7 @@ public class AddVectors : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InputValues();
-        transform.position = rTransform.position;
+        
     }
 
     // Update is called once per frame
@@ -30,14 +29,5 @@ public class AddVectors : MonoBehaviour
             Debug.DrawLine(Vector2.zero, rPlusB, UnityEngine.Color.magenta);
         }
     }
-    void InputValues()
-    {
-        if (GetComponent<SpriteRenderer>().color ==  UnityEngine.Color.red )
-        {
-            transform.position = rTransform.position;
-        }else if (GetComponent<SpriteRenderer>().color == UnityEngine.Color.blue)
-            {
-                transform.position = bTransform.position;
-            }
-    }
+   
 }
