@@ -20,9 +20,8 @@ public class VectorMath : MonoBehaviour
         return normalizedVector;    
     }
 
-    public float GetMagnitude(Vector2 vector)
+    public static float GetMagnitude(Vector2 vector)
     {
-
         return Mathf.Sqrt(vector.x * vector.x + vector.y * vector.y);
     }
     public static void DrawSquare(Vector2 centerpoint, float size, Color color, float duration)
