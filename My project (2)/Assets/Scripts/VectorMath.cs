@@ -14,6 +14,12 @@ public class VectorMath : MonoBehaviour
     {
         Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
+    public static Vector2 GetNormalizedVector(Vector2 vector){
+        float sizeOfVector = GetMagnitude(vector);
+        Vector2 normalizedVector = new Vector2(vector.x / sizeOfVector, vector.y / sizeOfVector);
+        return normalizedVector;    
+    }
+
     public float GetMagnitude(Vector2 vector)
     {
 
