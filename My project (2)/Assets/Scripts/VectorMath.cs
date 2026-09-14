@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class VectorMath : MonoBehaviour
 {
@@ -11,15 +12,30 @@ public class VectorMath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
-    float GetMagnitude(Vector2 vector)
+    public float GetMagnitude(Vector2 vector)
     {
 
         return Mathf.Sqrt(vector.x * vector.x + vector.y * vector.y);
     }
-    void DrawSquare(Vector2 centerpoint, float size, Color color, float duration)
+    public static void DrawSquare(Vector2 centerpoint, float size, Color color, float duration)
     {
+        Vector2 startPoint = centerpoint + new Vector2(-size, size);    //Above line
+        Vector2 endpoint = centerpoint + new Vector2(size, size);
+        Debug.DrawLine(startPoint, endpoint, color, duration);
 
+         startPoint = centerpoint + new Vector2(-size, size);    //left line
+         endpoint = centerpoint + new Vector2(-size, -size);
+        Debug.DrawLine(startPoint, endpoint, color, duration);
+
+        startPoint = centerpoint + new Vector2(-size, -size);    //bottom line
+        endpoint = centerpoint + new Vector2(size, -size);
+        Debug.DrawLine(startPoint, endpoint, color, duration);
+
+        startPoint = centerpoint + new Vector2(size, size);    //right line
+        endpoint = centerpoint + new Vector2(size, -size);
+        Debug.DrawLine(startPoint, endpoint, color, duration);
+        
     }
 }
