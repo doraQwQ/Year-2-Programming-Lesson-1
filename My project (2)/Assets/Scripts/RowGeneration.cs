@@ -16,4 +16,22 @@ public class RowGeneration : MonoBehaviour
     {
         
     }
+    public void generateSquares()
+    {
+        string answer = inputField.text;
+        for(int i=0;  i<answer.Length-1; i++)       //if the answer have alphabets,ignore upper and lower case
+        {
+            if (char.IsLetter(answer[i]))
+            {
+                inputField.text = "Answer contains letters. Please enter again.";
+            }
+            if (char.IsLetterOrDigit(answer[i]))
+            {
+                inputField.text = "Answer contains inappropriate values. Please enter again.";
+            }
+        }
+
+
+
+    }
 }
