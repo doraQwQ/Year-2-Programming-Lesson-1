@@ -28,11 +28,11 @@ public class Player : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 y = Random.Range(-2f, 2f);
-                if (x > -0.75 && x < 0.75 &&( y < -0.75 || y > 0.75))    //x is within player, y has to be upper or below
+                if (x > -0.75 && x < 0.75 &&( y < -0.73 || y > 0.73))    //x is within player, y has to be upper or below
                 {
                     break;
                 }
-                else if(!(x > -0.75 && x < 0.75))     // x is outside player position, any y works
+                else if(!(x > -0.75 && x < 0.73))     // x is outside player position, any y works
                 {
                     break;
                 }
