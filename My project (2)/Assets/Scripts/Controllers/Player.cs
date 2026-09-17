@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public Transform bombsTransform;
     public Vector3 bombOffset;
     public Vector2 spawnOffset;
+
+    public GameObject bombInstantation;
     void Start()
     {
         
@@ -34,9 +36,17 @@ public class Player : MonoBehaviour
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
-        Instantiate(bombPrefab, transform.position+offset, Quaternion.identity);
+        DestroyBomb();
+        bombInstantation =Instantiate(bombPrefab, transform.position+offset, Quaternion.identity);
         Debug.Log("X:" + offset.x + "Y:" +offset.y);
     }
+    void DestroyBomb()
+    {
+        if (bombInstantation != null)
+        {
+            Destroy(bombInstantation);
+        }
+    } 
     void dash (Vector2 newlocation)
     {
         //Vector2 distance = new Vector2( enemy.positon.x- transform.positon.x, enemy.positon.y - transform.Yield);
