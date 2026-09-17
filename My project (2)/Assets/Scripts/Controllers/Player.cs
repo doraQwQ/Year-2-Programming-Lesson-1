@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
-        //DestroyBomb();bbbbbb
+        DestroyBomb();
         bombInstantation =Instantiate(bombPrefab, transform.position+offset, Quaternion.identity);
         Debug.Log("X:" + offset.x + "Y:" +offset.y);
     }
