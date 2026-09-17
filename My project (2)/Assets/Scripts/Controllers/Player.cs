@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float y;
     public GameObject bombInstantation;
     public List<GameObject> bombs = new List<GameObject>();
+    bool IsUpperLeftCornerEmpty = true, IsLowerLeftCornerEmpty = true,
+         IsLowerRightCornerEmpty = true, IsUpperRightCornerEmpty = true;
     void Start()
     {
         
@@ -90,6 +92,43 @@ public class Player : MonoBehaviour
                 Destroy(bombs[i]);
             }
             bombs.Clear();
+        }
+    }
+    public void SpawnBombOnRandomCOrner(float inDistance)
+    {
+        int num = Random.Range(1, 5);
+        
+        if (num == 1)       //spawn at upper left corner
+        {
+            if (IsUpperLeftCornerEmpty)
+            {
+                Instantiate(bombPrefab, transform.position+new Vector3(-inDistance, inDistance, 0), Quaternion.identity);
+                IsUpperLeftCornerEmpty = false;
+            }
+        }else if (num == 2)//spawn at lower left corner
+        {
+            if (IsLowerLeftCornerEmpty)
+            {
+                Instantiate(bombPrefab, transform.position + new Vector3(-inDistance, -inDistance, 0), Quaternion.identity);
+                IsLowerLeftCornerEmpty = false;
+            }
+
+        }
+        else if (num == 3)//spawn at lower right corner
+        {
+            if (IsLowerRightCornerEmpty)
+            {
+                Instantiate(bombPrefab, transform.position + new Vector3(+inDistance, -inDistance, 0), Quaternion.identity);
+                IsLowerRightCornerEmpty = false;
+            }
+        }
+        else               //spawn at upper right corner
+        {
+            if (IsUpperRightCornerEmpty)
+            {
+                Instantiate(bombPrefab, transform.position + new Vector3(+inDistance, +inDistance, 0), Quaternion.identity);
+                IsUpperRightCornerEmpty = false;
+            }
         }
     }
     void dash (Vector2 newlocation)
