@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public float x;
     public float y;
     public GameObject bombInstantation;
+    public List<GameObject> bombs = new List<GameObject>();
     void Start()
     {
         
@@ -36,17 +37,7 @@ public class Player : MonoBehaviour
                 {
                     break;
                 }
-                //if (!(randomLocation > -0.75 && randomLocation < 0.75))   //prevent it from being on player
-                //{
-                //    if (!placedValue)  // put value in x
-                //    {
-                //        x = randomLocation;
-                //        placedValue = true;
-                //    } else 
-                //    {
-                //        y = randomLocation; //put value in y
-                //    }
-                //}
+               
             }
 
             bombOffset = new Vector3(x,y, 0f);
@@ -55,12 +46,15 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             //dash(transform.position);
-
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SpawnBombTrail(Random.Range(0.7f, 2f), Random.Range(1, 10));
         }
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
-        //DestroyBomb();bbbbbb
+        DestroyBomb(); 
         bombInstantation =Instantiate(bombPrefab, transform.position+offset, Quaternion.identity);
         Debug.Log("X:" + offset.x + "Y:" +offset.y);
     }
@@ -71,6 +65,33 @@ public class Player : MonoBehaviour
             Destroy(bombInstantation);
         }
     } 
+
+    //This function create a bomb trail behind player
+    public void SpawnBombTrail(float inBombSpacing, int inNumberOfBombs)    
+    {
+        ClearBombs();
+        GameObject bomb;
+        Vector3 location = transform.position - new Vector3(0, inBombSpacing, 0);
+        for (int i =0;i< inNumberOfBombs ; i++) //creating bomb trails
+        {
+            bomb=Instantiate(bombPrefab, location, Quaternion.identity);
+            bombs.Add(bomb);
+            location -= new Vector3(0, inBombSpacing, 0);
+        }
+
+    }
+    //This function clears bomb in previous record
+    public void ClearBombs()
+    {
+        if (bombs != null)  
+        {
+            for (int i = 0; i < bombs.Count; i++)
+            {
+                Destroy(bombs[i]);
+            }
+            bombs.Clear();
+        }
+    }
     void dash (Vector2 newlocation)
     {
         //Vector2 distance = new Vector2( enemy.positon.x- transform.positon.x, enemy.positon.y - transform.Yield);
