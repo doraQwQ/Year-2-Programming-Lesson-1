@@ -139,7 +139,15 @@ public class Player : MonoBehaviour
         float distanceBetweeninAsteroidsAndTransform;
         for (int i = 0; i < inAsteroids.Count; i++)
         {
-            
+            distanceBetinAsteroidsAndTransform = Vector3.Distance(transform.position, inAsteroids[i].position);
+            if (distanceBetinAsteroidsAndTransform < inMaxRange)
+            {
+
+                normalizedVector = VectorMath.GetNormalizedVector(inAsteroids[i].position);
+                normalizedVector = new Vector3(normalizedVector.x * 2.5f, normalizedVector.y * 2.5f, 0);
+                
+                Debug.DrawLine(transform.position, transform.position + normalizedVector, Color.green);
+            }
         }
     }
     void dash (Vector2 newlocation)
