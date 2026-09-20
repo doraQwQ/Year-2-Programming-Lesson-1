@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         {
             SpawnBombTrail(Random.Range(0.7f, 2f), Random.Range(1, 10));
         }
+        DetectAstroids(2, asteroidTransforms);
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
@@ -136,17 +137,15 @@ public class Player : MonoBehaviour
     public void DetectAstroids(float inMaxRange, List<Transform> inAsteroids)
     {
         Vector3 normalizedVector;
-        float distanceBetweeninAsteroidsAndTransform;
+        float distanceBetinAsteroidsAndTransform = 0f ;
         for (int i = 0; i < inAsteroids.Count; i++)
         {
             distanceBetinAsteroidsAndTransform = Vector3.Distance(transform.position, inAsteroids[i].position);
             if (distanceBetinAsteroidsAndTransform < inMaxRange)
             {
-
-                normalizedVector = VectorMath.GetNormalizedVector(inAsteroids[i].position);
+                normalizedVector = VectorMath.GetNormalizedVector(inAsteroids[i].position-transform.position);
                 normalizedVector = new Vector3(normalizedVector.x * 2.5f, normalizedVector.y * 2.5f, 0);
-                
-                Debug.DrawLine(transform.position, transform.position + normalizedVector, Color.green);
+                Debug.DrawLine(transform.position, transform.position+ normalizedVector, Color.green);
             }
         }
     }
