@@ -131,6 +131,17 @@ public class Player : MonoBehaviour
             }
         }
     }
+    //This function detects if inAsteroids are near by, if so, lines will be drawn from player, to
+    //the Asterpoid with a 2.5 in length
+    public void DetectAstroids(float inMaxRange, List<Transform> inAsteroids)
+    {
+        Vector3 normalizedVector;
+        float distanceBetweeninAsteroidsAndTransform;
+        for (int i = 0; i < inAsteroids.Count; i++)
+        {
+            
+        }
+    }
     void dash (Vector2 newlocation)
     {
         //Vector2 distance = new Vector2( enemy.positon.x- transform.positon.x, enemy.positon.y - transform.Yield);
