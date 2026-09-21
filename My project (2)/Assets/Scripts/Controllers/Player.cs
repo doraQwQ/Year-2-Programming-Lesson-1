@@ -19,12 +19,19 @@ public class Player : MonoBehaviour
     public List<GameObject> bombs = new List<GameObject>();
     bool IsUpperLeftCornerEmpty = true, IsLowerLeftCornerEmpty = true,
          IsLowerRightCornerEmpty = true, IsUpperRightCornerEmpty = true;
+    public Vector3 currentVelocity = Vector3.right;
+    public Vector3 velocity1 = Vector3.up;
+    public Vector3 velocity2 = Vector3.left;
+    public Vector3 velocity3 = Vector3.down;
+    public Vector3 velocity4 = Vector3.right;
     void Start()
     {
         
     }
     void Update()
     {
+        PlayerMovenment();
+        //transform.position = transform.position + currentVelocity;
         if (Input.GetKeyDown(KeyCode.B))    //spawn bomb at a random place near player
         {  //prevent the bomb spawning at player
             x = Random.Range(-2f, 2f);
@@ -54,6 +61,23 @@ public class Player : MonoBehaviour
             SpawnBombTrail(Random.Range(0.7f, 2f), Random.Range(1, 10));
         }
         DetectAstroids(2, asteroidTransforms);
+    }
+    //This method allows player to move player
+    void PlayerMovenment()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            transform.position = transform.position + velocity1;
+        }else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.position = transform.position + velocity2;
+        }else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            transform.position = transform.position + velocity3;
+        }else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            transform.position = transform.position + velocity4;
+        }
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
