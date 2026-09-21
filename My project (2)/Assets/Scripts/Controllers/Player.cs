@@ -19,12 +19,14 @@ public class Player : MonoBehaviour
     public List<GameObject> bombs = new List<GameObject>();
     bool IsUpperLeftCornerEmpty = true, IsLowerLeftCornerEmpty = true,
          IsLowerRightCornerEmpty = true, IsUpperRightCornerEmpty = true;
+    float timer = 0;
     void Start()
     {
         
     }
     void Update()
     {
+        timer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.B))    //spawn bomb at a random place near player
         {  //prevent the bomb spawning at player
             x = Random.Range(-2f, 2f);
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
         {
             SpawnBombTrail(Random.Range(0.7f, 2f), Random.Range(1, 10));
         }
+        SpawnBombOnRandomCorner(2f);
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
@@ -94,40 +97,47 @@ public class Player : MonoBehaviour
             bombs.Clear();
         }
     }
-    public void SpawnBombOnRandomCOrner(float inDistance)
+    public void SpawnBombOnRandomCorner(float inDistance)
     {
-        int num = Random.Range(1, 5);
-        
-        if (num == 1)       //spawn at upper left corner
+        if (timer > 5f && (IsUpperLeftCornerEmpty|| IsLowerLeftCornerEmpty
+            || IsLowerRightCornerEmpty|| IsUpperRightCornerEmpty))
         {
-            if (IsUpperLeftCornerEmpty)
-            {
-                Instantiate(bombPrefab, transform.position+new Vector3(-inDistance, inDistance, 0), Quaternion.identity);
-                IsUpperLeftCornerEmpty = false;
-            }
-        }else if (num == 2)//spawn at lower left corner
-        {
-            if (IsLowerLeftCornerEmpty)
-            {
-                Instantiate(bombPrefab, transform.position + new Vector3(-inDistance, -inDistance, 0), Quaternion.identity);
-                IsLowerLeftCornerEmpty = false;
-            }
+           
+            timer -= 5;
+            int num = Random.Range(1, 5);
 
-        }
-        else if (num == 3)//spawn at lower right corner
-        {
-            if (IsLowerRightCornerEmpty)
+            if (num == 1)       //spawn at upper left corner
             {
-                Instantiate(bombPrefab, transform.position + new Vector3(+inDistance, -inDistance, 0), Quaternion.identity);
-                IsLowerRightCornerEmpty = false;
+                if (IsUpperLeftCornerEmpty)
+                {
+                    Instantiate(bombPrefab, transform.position + new Vector3(-inDistance, inDistance, 0), Quaternion.identity);
+                    IsUpperLeftCornerEmpty = false;
+                }
             }
-        }
-        else               //spawn at upper right corner
-        {
-            if (IsUpperRightCornerEmpty)
+            else if (num == 2)//spawn at lower left corner
             {
-                Instantiate(bombPrefab, transform.position + new Vector3(+inDistance, +inDistance, 0), Quaternion.identity);
-                IsUpperRightCornerEmpty = false;
+                if (IsLowerLeftCornerEmpty)
+                {
+                    Instantiate(bombPrefab, transform.position + new Vector3(-inDistance, -inDistance, 0), Quaternion.identity);
+                    IsLowerLeftCornerEmpty = false;
+                }
+
+            }
+            else if (num == 3)//spawn at lower right corner
+            {
+                if (IsLowerRightCornerEmpty)
+                {
+                    Instantiate(bombPrefab, transform.position + new Vector3(+inDistance, -inDistance, 0), Quaternion.identity);
+                    IsLowerRightCornerEmpty = false;
+                }
+            }
+            else               //spawn at upper right corner
+            {
+                if (IsUpperRightCornerEmpty)
+                {
+                    Instantiate(bombPrefab, transform.position + new Vector3(+inDistance, +inDistance, 0), Quaternion.identity);
+                    IsUpperRightCornerEmpty = false;
+                }
             }
         }
     }
