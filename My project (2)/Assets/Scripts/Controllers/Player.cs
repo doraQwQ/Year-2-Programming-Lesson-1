@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -24,14 +25,27 @@ public class Player : MonoBehaviour
     public Vector3 velocity2 = Vector3.left;
     public Vector3 velocity3 = Vector3.down;
     public Vector3 velocity4 = Vector3.right;
+    public float speed=1;
+    public float accelerationTime=3f;
+    public float currentAcceleration;
+    public float maxSpeed;
+    public float deceleration;
+    public float decelerationTime;
+    public Vector3 pastVelocityDirection;
     void Start()
     {
-        
+        currentAcceleration = maxSpeed / accelerationTime;
+        //decelerationTime = pastVelocityDirection / deceleration;
+        //transform.position = transform.position + currentVelocity;
     }
     void Update()
     {
+        if (currentAcceleration>= maxSpeed)
+        {
+            currentAcceleration = maxSpeed;
+        }
         PlayerMovenment();
-        //transform.position = transform.position + currentVelocity;
+        
         if (Input.GetKeyDown(KeyCode.B))    //spawn bomb at a random place near player
         {  //prevent the bomb spawning at player
             x = Random.Range(-2f, 2f);
@@ -64,9 +78,58 @@ public class Player : MonoBehaviour
     }
     //This method allows player to move player
     void PlayerMovenment()
-    {
+    {   //Easy way, set the velocity to 0, then everytime in if condition,
+        //change the velocity to suitable one and multiply each by speed.
+        
+        currentVelocity = Vector3.zero;
+        Vector3 accelerationDirection = Vector3.zero;
+        
+        if(Keyboard.current.leftArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.left;
+            pastVelocityDirection = Vector3.left;
+        }
+        if (Keyboard.current.rightArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.right;
+            pastVelocityDirection = Vector3.right;
+        }
+        if (Keyboard.current.upArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.up;
+            pastVelocityDirection = Vector3.up;
+        }
+        if (Keyboard.current.downArrowKey.isPressed)
+        {
+            accelerationDirection += Vector3.down;
+            pastVelocityDirection = Vector3.down;
+        }
+        if(!Keyboard.current.downArrowKey.isPressed&&!Keyboard.current.upArrowKey.isPressed&&       //when player isn't pressing any keys
+            !Keyboard.current.rightArrowKey.isPressed && !Keyboard.current.leftArrowKey.isPressed)
+        {
+            
+            accelerationDirection += pastVelocityDirection;
+            currentVelocity = accelerationDirection.normalized* Time.deltaTime;
+
+        }
+        if (currentVelocity.magnitude > maxSpeed)
+        {
+            currentVelocity = currentVelocity.normalized * maxSpeed;
+        }
+        
+        //Accleration deirection is the direction that we are acceleration
+        //we normalize it and then set the amount to acceleration by
+        currentVelocity += accelerationDirection.normalized* currentAcceleration* Time.deltaTime;
+        transform.position += accelerationDirection * Time.deltaTime;
+        
+         
+        /*
+        Vector3 temporary;
+        
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            temporary=transform.position + velocity1;
+            //if()//it is going out of bound
             transform.position = transform.position + velocity1;
         }else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -78,6 +141,7 @@ public class Player : MonoBehaviour
         {
             transform.position = transform.position + velocity4;
         }
+        */
     }
     void SpawnBombAtOffset(Vector3 offset)
     {
