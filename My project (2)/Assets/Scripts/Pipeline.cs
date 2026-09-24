@@ -9,6 +9,7 @@ public class Pipeline : MonoBehaviour
     Vector3 one;
     Vector3 two;
     public LineRenderer line;
+    float magnitude = 0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,13 +66,21 @@ public class Pipeline : MonoBehaviour
                 timer = 0; 
             }
         }
-        if (Input.GetMouseButtonUp(0)) //clicked
+        if (Input.GetMouseButtonUp(0)) //released
         {
-            mouseLocation.Clear();    
+            magnitude = 0;
+            for (int i = 0; i < mouseLocation.Count - 1; i++)
+            {
+                magnitude += Vector3.Distance(mouseLocation[i], mouseLocation[i+1]);
+            }
+            Debug.Log("Magnitude = " + Mathf.Round(magnitude));
+        }
+        if (Input.GetMouseButtonDown(0))   //clicked
+        {
+            mouseLocation.Clear();
             timer = 0;
             line.positionCount = 0;
             mouseLocation.Add(Input.mousePosition);
-            Debug.Log(mouseLocation[mouseLocation.Count - 1]);
         }
        
     }
