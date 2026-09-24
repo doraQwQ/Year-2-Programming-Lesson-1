@@ -6,6 +6,9 @@ public class Pipeline : MonoBehaviour
     public List<Vector3> mouseLocation = new List<Vector3>();
     float timer = 0f;
     bool start = false;
+    Vector3 one;
+    Vector3 two;
+    public LineRenderer line;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,28 +19,45 @@ public class Pipeline : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0)&&timer>10f)
+        if (Input.GetMouseButton(0))
         {   //being held
-            timer -= 10;            
-            timer += Time.deltaTime;    
-            mouseLocation.Add(Input.mousePosition); 
             
-            if (start)  //draw from old to new
+            timer += Time.deltaTime;
+            if (timer > 0.1f)
             {
-                Debug.DrawLine(mouseLocation.Count - 2, mouseLocation.Count - 1);
-                start = !start;
-            }
-            else        //draw from new to old  
-            {
-                Debug.DrawLine(mouseLocation.Count - 1, mouseLocation.Count - 2);
-                start = !start;
+                line.positionCount = mouseLocation.Count;
+                mouseLocation.Add(Input.mousePosition);
+
+                Debug.Log("WAAAAA");
+                if (start&&mouseLocation.Count>2)  //draw from old to new
+                { 
+                    one = Camera.main.ScreenToWorldPoint(mouseLocation[mouseLocation.Count - 1]);
+                    start = !start;
+                    Debug.Log("WBBB");
+                    for(int i = 0; i < mouseLocation.Count - 1; i++)
+                    {
+                        line.SetPosition(mouseLocation.Count - 1, one);
+                    }
+                }
+                else  if(!start&& mouseLocation.Count > 2)      //draw from new to old  
+                {
+                    one = Camera.main.ScreenToWorldPoint(mouseLocation[mouseLocation.Count - 1]);
+                    for (int i = 0; i < mouseLocation.Count - 1; i++)
+                    {
+                        line.SetPosition(mouseLocation.Count - 1, one);
+                    }
+                    start = !start;
+                    
+                }
+                timer = 0; ;
             }
         }
         if (Input.GetMouseButtonUp(0)) //clicked
         {
-            mouseLocation.Clear;    
+            mouseLocation.Clear();    
             timer = 0;
             mouseLocation.Add(Input.mousePosition);
+            Debug.Log(mouseLocation[mouseLocation.Count - 1]);
         }
        
     }
