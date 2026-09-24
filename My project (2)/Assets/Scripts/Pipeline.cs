@@ -16,19 +16,29 @@ public class Pipeline : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&timer>10f)
         {   //being held
-            mouseLocation.Add(Input.mousePosition);
-
+            timer -= 10;            
+            timer += Time.deltaTime;    
+            mouseLocation.Add(Input.mousePosition); 
+            
+            if (start)  //draw from old to new
+            {
+                Debug.DrawLine(mouseLocation.Count - 2, mouseLocation.Count - 1);
+                start = !start;
+            }
+            else        //draw from new to old  
+            {
+                Debug.DrawLine(mouseLocation.Count - 1, mouseLocation.Count - 2);
+                start = !start;
+            }
         }
         if (Input.GetMouseButtonUp(0)) //clicked
         {
-            timer = 0f;
-            start = true;
+            mouseLocation.Clear;    
+            timer = 0;
+            mouseLocation.Add(Input.mousePosition);
         }
-        if (start)
-        {
-            timer += Time.deltaTime;
-        }
+       
     }
 }
