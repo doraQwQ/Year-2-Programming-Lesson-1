@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Asteroid : MonoBehaviour
@@ -16,5 +17,17 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+    public void AsteroidMovement()
+    {
+        float a = Random.Range(-5, 5);
+        float b = Random.Range(-5, 5);
+        Vector3 newLocation= new Vector3(a, b, 0);
+        Vector3 Vector, realLocation ;
+        Vector = newLocation.normalized* maxFloatDistance*Time.deltaTime;
+        realLocation= arrivalDistance* newLocation.normalized* maxFloatDistance;
+        transform.position += moveSpeed * Time.deltaTime;
+
+
     }
 }
