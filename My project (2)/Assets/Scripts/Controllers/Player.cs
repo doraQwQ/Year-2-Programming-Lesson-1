@@ -24,22 +24,25 @@ public class Player : MonoBehaviour
 
     public Vector3 currentVelocity = Vector3.right;
 
-    public Vector3 velocity1 = Vector3.up;
-    public Vector3 velocity2 = Vector3.left;
-    public Vector3 velocity3 = Vector3.down;
-    public Vector3 velocity4 = Vector3.right;
+    //public Vector3 velocity1 = Vector3.up;
+    //public Vector3 velocity2 = Vector3.left;
+    //public Vector3 velocity3 = Vector3.down;
+    //public Vector3 velocity4 = Vector3.right;
 
     public float speed=2;
     public float accelerationTime=3f;
     public float currentAcceleration;
     public float maxSpeed;
-    public float deceleration=3;
+    public float deceleration=0.9f;
     public float decelerationTime=1.5f;
     public Vector3 pastVelocityDirection;
+    public Vector3 pastVelocity;
+
     void Start()
     {
         currentAcceleration = maxSpeed / accelerationTime;
         //deceleration = speed / decelerationTime;
+        deceleration = (currentVelocity/ decelerationTime).magnitude;
         //transform.position = transform.position + currentVelocity;
     }
     void Update()
@@ -51,7 +54,7 @@ public class Player : MonoBehaviour
         PlayerMovenment();
         /*
         if (Input.GetKeyDown(KeyCode.B))    //spawn bomb at a random place near player
-        {  //prevent the bomb spawning at player
+        {  //this code ensures that the bomb is not spawning at player
             x = Random.Range(-2f, 2f);
             for (int i = 0; i < 10; i++)
             {
@@ -106,33 +109,32 @@ public class Player : MonoBehaviour
             accelerationDirection += Vector3.down;
             pastVelocityDirection = Vector3.down;
         }
-        //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
-        //WE NORMALIZE IT 
-        //AND THEN SET THE AMOUNT TO ACCELERATE BY:
+        //Accleration direction is the direction that we are acceleration
+        //we normalize it and then set the amount to acceleration by
+      
         currentVelocity += accelerationDirection.normalized * currentAcceleration * Time.deltaTime;
-
-        transform.position += currentVelocity * Time.deltaTime;
+        if (!(currentVelocity.magnitude == 0))
+        {
+            pastVelocity = currentVelocity;
+        }
+        
+       
 
         if (!(Keyboard.current.downArrowKey.isPressed || Keyboard.current.upArrowKey.isPressed ||       //deceleration
             Keyboard.current.rightArrowKey.isPressed || Keyboard.current.leftArrowKey.isPressed))
-        {
-
-            
-            currentVelocity = pastVelocityDirection.normalized * Time.deltaTime;
-
+        { 
+            currentVelocity = pastVelocity * deceleration* Time.deltaTime;
         }
         /*
         if (currentVelocity.magnitude > maxSpeed)
         {
             currentVelocity = currentVelocity.normalized * maxSpeed;
         }*/
-
-        //Accleration direction is the direction that we are acceleration
-        //we normalize it and then set the amount to acceleration by
-        currentVelocity += accelerationDirection.normalized* currentAcceleration* Time.deltaTime;
         transform.position += currentVelocity * Time.deltaTime;
-        
-         
+
+
+
+
         /*
         Vector3 temporary;
         
