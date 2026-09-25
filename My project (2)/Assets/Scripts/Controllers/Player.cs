@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     {
         currentAcceleration = maxSpeed / accelerationTime;
         //deceleration = speed / decelerationTime;
-        deceleration = (currentVelocity/ decelerationTime).magnitude;
+        deceleration = maxSpeed / decelerationTime;
         //transform.position = transform.position + currentVelocity;
     }
     void Update()
@@ -117,13 +117,15 @@ public class Player : MonoBehaviour
         {
             pastVelocity = currentVelocity;
         }
-        
-       
+        if (currentAcceleration > 0)
+        {
+            deceleration = currentAcceleration;
+        }
 
-        if (!(Keyboard.current.downArrowKey.isPressed || Keyboard.current.upArrowKey.isPressed ||       //deceleration
+        if (!(Keyboard.current.downArrowKey.isPressed || Keyboard.current.upArrowKey.isPressed ||  //deceleration
             Keyboard.current.rightArrowKey.isPressed || Keyboard.current.leftArrowKey.isPressed))
         { 
-            currentVelocity = pastVelocity * deceleration* Time.deltaTime;
+            currentVelocity -= pastVelocity * deceleration* Time.deltaTime;
         }
         /*
         if (currentVelocity.magnitude > maxSpeed)
