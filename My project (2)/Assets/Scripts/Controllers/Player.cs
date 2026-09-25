@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    //Enemy enemy= GetComponent<Enemy>;
+    
     public List<Transform> asteroidTransforms;
     public Transform enemyTransform;
     public GameObject bombPrefab;
@@ -18,24 +18,28 @@ public class Player : MonoBehaviour
     public float y;
     public GameObject bombInstantation;
     public List<GameObject> bombs = new List<GameObject>();
+
     bool IsUpperLeftCornerEmpty = true, IsLowerLeftCornerEmpty = true,
          IsLowerRightCornerEmpty = true, IsUpperRightCornerEmpty = true;
+
     public Vector3 currentVelocity = Vector3.right;
+
     public Vector3 velocity1 = Vector3.up;
     public Vector3 velocity2 = Vector3.left;
     public Vector3 velocity3 = Vector3.down;
     public Vector3 velocity4 = Vector3.right;
-    public float speed=1;
+
+    public float speed=2;
     public float accelerationTime=3f;
     public float currentAcceleration;
     public float maxSpeed;
-    public float deceleration;
-    public float decelerationTime;
+    public float deceleration=3;
+    public float decelerationTime=1.5f;
     public Vector3 pastVelocityDirection;
     void Start()
     {
         currentAcceleration = maxSpeed / accelerationTime;
-        //decelerationTime = pastVelocityDirection / deceleration;
+        //deceleration = speed / decelerationTime;
         //transform.position = transform.position + currentVelocity;
     }
     void Update()
@@ -45,7 +49,7 @@ public class Player : MonoBehaviour
             currentAcceleration = maxSpeed;
         }
         PlayerMovenment();
-        
+        /*
         if (Input.GetKeyDown(KeyCode.B))    //spawn bomb at a random place near player
         {  //prevent the bomb spawning at player
             x = Random.Range(-2f, 2f);
@@ -75,16 +79,14 @@ public class Player : MonoBehaviour
             SpawnBombTrail(Random.Range(0.7f, 2f), Random.Range(1, 10));
         }
         DetectAstroids(2, asteroidTransforms);
+        */
     }
     //This method allows player to move player
     void PlayerMovenment()
     {   //Easy way, set the velocity to 0, then everytime in if condition,
-        //change the velocity to suitable one and multiply each by speed.
-        
-        currentVelocity = Vector3.zero;
+        //change the velocity to the right direction one and multiply each by speed.
         Vector3 accelerationDirection = Vector3.zero;
-        
-        if(Keyboard.current.leftArrowKey.isPressed)
+        if (Keyboard.current.leftArrowKey.isPressed)
         {
             accelerationDirection += Vector3.left;
             pastVelocityDirection = Vector3.left;
@@ -104,23 +106,31 @@ public class Player : MonoBehaviour
             accelerationDirection += Vector3.down;
             pastVelocityDirection = Vector3.down;
         }
-        if(!Keyboard.current.downArrowKey.isPressed&&!Keyboard.current.upArrowKey.isPressed&&       //when player isn't pressing any keys
-            !Keyboard.current.rightArrowKey.isPressed && !Keyboard.current.leftArrowKey.isPressed)
+        //ACCELERATION DIRECTION REPRESENTS THE DIRECTION WE ARE ACCELERATING
+        //WE NORMALIZE IT 
+        //AND THEN SET THE AMOUNT TO ACCELERATE BY:
+        currentVelocity += accelerationDirection.normalized * currentAcceleration * Time.deltaTime;
+
+        transform.position += currentVelocity * Time.deltaTime;
+
+        if (!(Keyboard.current.downArrowKey.isPressed || Keyboard.current.upArrowKey.isPressed ||       //deceleration
+            Keyboard.current.rightArrowKey.isPressed || Keyboard.current.leftArrowKey.isPressed))
         {
+
             
-            accelerationDirection += pastVelocityDirection;
-            currentVelocity = accelerationDirection.normalized* Time.deltaTime;
+            currentVelocity = pastVelocityDirection.normalized * Time.deltaTime;
 
         }
+        /*
         if (currentVelocity.magnitude > maxSpeed)
         {
             currentVelocity = currentVelocity.normalized * maxSpeed;
-        }
-        
-        //Accleration deirection is the direction that we are acceleration
+        }*/
+
+        //Accleration direction is the direction that we are acceleration
         //we normalize it and then set the amount to acceleration by
         currentVelocity += accelerationDirection.normalized* currentAcceleration* Time.deltaTime;
-        transform.position += accelerationDirection * Time.deltaTime;
+        transform.position += currentVelocity * Time.deltaTime;
         
          
         /*
@@ -143,12 +153,15 @@ public class Player : MonoBehaviour
         }
         */
     }
+    /*
+     * //HomeWork
     void SpawnBombAtOffset(Vector3 offset)
     {
         DestroyBomb(); 
         bombInstantation =Instantiate(bombPrefab, transform.position+offset, Quaternion.identity);
         Debug.Log("X:" + offset.x + "Y:" +offset.y);
     }
+    //HomeWork
     void DestroyBomb()
     {
         if (bombInstantation != null)
@@ -156,7 +169,7 @@ public class Player : MonoBehaviour
             Destroy(bombInstantation);
         }
     } 
-
+    //HomeWork
     //This function create a bomb trail behind player
     public void SpawnBombTrail(float inBombSpacing, int inNumberOfBombs)    
     {
@@ -171,6 +184,7 @@ public class Player : MonoBehaviour
         }
 
     }
+    //HomeWork
     //This function clears bomb in previous record
     public void ClearBombs()
     {
@@ -183,6 +197,7 @@ public class Player : MonoBehaviour
             bombs.Clear();
         }
     }
+    //HomeWork
     public void SpawnBombOnRandomCOrner(float inDistance)
     {
         int num = Random.Range(1, 5);
@@ -220,6 +235,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+    //HomeWork
     //This function detects if inAsteroids are near by, if so, lines will be drawn from player, to
     //the Asterpoid with a 2.5 in length
     public void DetectAstroids(float inMaxRange, List<Transform> inAsteroids)
@@ -237,6 +253,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+    //HomeWork
     void dash (Vector2 newlocation)
     {
         //Vector2 distance = new Vector2( enemy.positon.x- transform.positon.x, enemy.positon.y - transform.Yield);
@@ -245,4 +262,5 @@ public class Player : MonoBehaviour
         //transform.x=Normalize.x *0.2, Normalize.y * 0.2;
     }
     //rEfrence https://discussions.unity.com/t/check-if-e-key-is-pressed-in-c/657221
+    */
 }
