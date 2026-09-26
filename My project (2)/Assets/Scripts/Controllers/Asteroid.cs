@@ -8,7 +8,8 @@ public class Asteroid : MonoBehaviour
     public float moveSpeed;
     public float arrivalDistance;
     public float maxFloatDistance;
-    Vector3 Vector, realLocation;
+    Vector3 Vector, newLocation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        AsteroidMovement();
     }
     public void AsteroidMovement()
     {
@@ -26,12 +28,12 @@ public class Asteroid : MonoBehaviour
             float a = Random.Range(-10, 10);
             float b = Random.Range(-10, 10);
             newLocation = new Vector3(a, b, 0);
+            arrivalDistance = 10;
         }
 
         Vector = newLocation.normalized* maxFloatDistance*Time.deltaTime;
-        arrivalDistance = realLocation - transform.position;
-        
-        transform.position += vector * Time.deltaTime;
+        arrivalDistance = (newLocation - transform.position).magnitude;
+        transform.position += Vector * Time.deltaTime;
 
 
     }
