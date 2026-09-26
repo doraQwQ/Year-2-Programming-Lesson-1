@@ -25,7 +25,11 @@ public class Asteroid : MonoBehaviour
         Vector3 newLocation= new Vector3(a, b, 0);
         Vector3 Vector, realLocation ;
         Vector = newLocation.normalized* maxFloatDistance*Time.deltaTime;
-        realLocation= arrivalDistance* newLocation.normalized* maxFloatDistance;
+        arrivalDistance = realLocation - transform.position;
+        if (arrivalDistance < 5)
+        {   //if close enough, find a new location to go to
+
+        }
         transform.position += moveSpeed * Time.deltaTime;
 
 
