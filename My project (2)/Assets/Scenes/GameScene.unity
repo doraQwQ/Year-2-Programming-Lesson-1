@@ -1377,9 +1377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0de4bc6d848ee04980dfc47f7dfffc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Asteroid
-  moveSpeed: 3
-  arrivalDistance: 5
-  maxFloatDistance: 8
+  moveSpeed: 1
+  arrivalDistance: 2
+  maxFloatDistance: 3
 --- !u!1001 &1117140675
 PrefabInstance:
   m_ObjectHideFlags: 0
