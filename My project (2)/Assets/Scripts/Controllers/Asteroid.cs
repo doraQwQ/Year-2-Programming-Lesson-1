@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    public float moveSpeed;
+    public float moveSpeed=4;
     public float arrivalDistance;
     public float maxFloatDistance;
-    Vector3 Vector, newLocation;
 
+    Vector3 newLocation = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
         arrivalDistance = 0;
+ 
     }
 
     // Update is called once per frame
@@ -23,15 +24,16 @@ public class Asteroid : MonoBehaviour
     }
     public void AsteroidMovement()
     {
-        if (arrivalDistance < 5)
+        Vector3 Vector;
+        if (arrivalDistance < 3)
         {   //if close enough, find a new location to go to
             float a = Random.Range(-10, 10);
             float b = Random.Range(-10, 10);
             newLocation = new Vector3(a, b, 0);
-            arrivalDistance = 10;
+            arrivalDistance = 5;
         }
 
-        Vector = newLocation.normalized* maxFloatDistance*Time.deltaTime;
+        Vector = (newLocation-transform.position).normalized* maxFloatDistance;
         arrivalDistance = (newLocation - transform.position).magnitude;
         transform.position += Vector * Time.deltaTime;
 
