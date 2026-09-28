@@ -4,10 +4,10 @@ using System.Collections;
 public class Enemy : MonoBehaviour
 {
     Vector3 orgin;
-    float num = 1;
-    int speed = 0.1;
+    float num = 1f;
+    float speed = 0.3f;
     Vector3 up, down, right, left;
-    void start()
+    void Start()
     {
         orgin = transform.position;
         up = transform.position + Vector3.up;
@@ -22,13 +22,13 @@ public class Enemy : MonoBehaviour
     void EnemyMovenment()
     {
         Vector3 tempLocation = transform.position;
-        Vector3 temp;
+        //Vector3 temp;
 
         if (num == 1)//Going up
         {
             if (transform.position != up)
             {
-                tempLocation.y +=  speed*Time.deltaTime;
+                tempLocation.y +=  speed* Time.deltaTime;
             }
             else
             {
@@ -38,8 +38,8 @@ public class Enemy : MonoBehaviour
         }
         if (!(num % 1 == 0))//If not at orgin and at any middle position
         {
-            temp = (orgin - tranform.position).normalized * Time.deltaTime * speed;
-            transform.position += temp;
+            tempLocation += (orgin - transform.position).normalized * Time.deltaTime * speed;
+         
         }
         transform.position = tempLocation;
     }
