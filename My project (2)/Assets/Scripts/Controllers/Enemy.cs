@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     Vector3 orgin;
     float num = 1f;
-    float speed = 0.3f;
+    float speed = 0.7f;
     Vector3 up, down, right, left;
     void Start()
     {
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
 
         if (num == 1)//Going up
         {
-            if (transform.position != up)
+            if (transform.position.y <= up.y)
             {
                 tempLocation.y +=  speed* Time.deltaTime;
             }
