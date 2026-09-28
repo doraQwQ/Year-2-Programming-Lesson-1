@@ -96,12 +96,13 @@ public class Player : MonoBehaviour
         */
     }
     //This function takes in points from world, then convert it to radians, and then draw lines in circle
-    //void DrawGreenHexigonAroundPlayer(float radius,<Vector3>pointsList)
-    //{
-    //    float angInRad = pointsList[0] * Mathf.Deg2Rad;
-    //    Vector3 newPoint = (Mathf.Cos(angInRad) * radius, Mathf.Sin(angInRad) * radius, 0);
-    //    Debug.DrawLine(transform.position, newPoint, Color.green,3);
-    //}
+    void DrawGreenHexigonAroundPlayer(float radius,int points)
+    {
+        <Vector3> PointList= new List<Vector3>;
+        float angInRad = points * Mathf.Deg2Rad;
+        Vector3 newPoint = (Mathf.Cos(angInRad) * radius, Mathf.Sin(angInRad) * radius, 0);
+        Debug.DrawLine(transform.position, newPoint, Color.green, 3);
+    }
     //This method allows player to move player
     void PlayerMovenment()
     {   //Easy way, set the velocity to 0, then everytime in if condition,
