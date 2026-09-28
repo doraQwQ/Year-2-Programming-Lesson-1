@@ -23,20 +23,8 @@ public class Stars : MonoBehaviour
         //    Debug.Log(whatever.positon)
         //}
         //if using this one, need to create addition storing points, then use them to calculate and somehow
-        //knowing at some point it is the end and stops the code????
+        //knowing at some point it is the end and stops the code?
 
-
-
-        //for (int i = 0; i < starTransforms.Count-1; i++)
-        //{
-        //    if (progress > 1f)
-        //    {
-        //        progress = 0;
-
-        //    }
-        //    drawing = Vector3.Lerp(starTransforms[i].position, starTransforms[i+1].position, progress);
-        //    Debug.DrawLine(starTransforms[i].position, drawing, Color.white);
-        //}
         //making new position
         drawing = Vector3.Lerp(starTransforms[i].position, starTransforms[i+1].position, progress);
         if (progress > 1f)
