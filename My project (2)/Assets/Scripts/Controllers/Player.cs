@@ -17,12 +17,17 @@ public class Player : MonoBehaviour
     public float x;
     public float y;
     public GameObject bombInstantation;
+    GameObject bombInstansTwo;
     public List<GameObject> bombs = new List<GameObject>();
 
     bool IsUpperLeftCornerEmpty = true, IsLowerLeftCornerEmpty = true,
          IsLowerRightCornerEmpty = true, IsUpperRightCornerEmpty = true;
 
     public Vector3 currentVelocity = Vector3.right;
+    
+    float locationX;//for player bomb shield
+    float locationY;
+    float angle;
 
     //public Vector3 velocity1 = Vector3.up;
     //public Vector3 velocity2 = Vector3.left;
@@ -47,6 +52,9 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        angle += 2 * Time.deltaTime;
+        PlayerBombShield();
+
         if (currentAcceleration>= maxSpeed)
         {
             currentAcceleration = maxSpeed;
@@ -157,6 +165,23 @@ public class Player : MonoBehaviour
         }
         */
     }
+    //This function create a bomb that circles around the player and protects the player from enemy.
+    void PlayerBombShield()
+    {
+        Vector3 location = transform.position;
+        locationX=location.x+ Mathf.Cos(angle)*2;
+        locationY=location.y + Mathf.Sin(angle)*2 ;
+        if (bombInstansTwo == null)
+        {
+            bombInstansTwo = Instantiate(bombPrefab, new Vector3(locationX, locationY, 0), Quaternion.identity);
+
+        }else 
+        {
+            bombInstansTwo.transform.position = new Vector3(locationX, locationY, 0);
+        }
+       
+    }
+
     /*
      * //HomeWork
     void SpawnBombAtOffset(Vector3 offset)
