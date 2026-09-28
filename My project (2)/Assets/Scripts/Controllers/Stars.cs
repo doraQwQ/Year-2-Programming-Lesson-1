@@ -30,15 +30,13 @@ public class Stars : MonoBehaviour
         if (progress > 1f)
         {
             progress = 0;
-            if ((i + 1) <= starTransforms.Count - 1)   //prevent number be greater than starTransform.Count
+            if ((i + 1) <= starTransforms.Count - 2)   //prevent number be greater than starTransform.Count
             {
-                i += 1;
-                print(i);
+                i += 1;     
             }
             else  //num=max
             {
                 i = 0;
-                print(i);
             }
             
            
