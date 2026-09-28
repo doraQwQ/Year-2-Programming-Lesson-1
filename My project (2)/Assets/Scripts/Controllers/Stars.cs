@@ -9,7 +9,6 @@ public class Stars : MonoBehaviour
     Vector3 drawing;
     float progress;
     int i = 0;
-    bool increase = true;
     // Update is called once per frame
     void Update()
     {
@@ -43,24 +42,18 @@ public class Stars : MonoBehaviour
         if (progress > 1f)
         {
             progress = 0;
-            if (increase && (i + 1) <= starTransforms.Count - 1)   //prevent number be greater than starTransform.Count
+            if ((i + 1) <= starTransforms.Count - 1)   //prevent number be greater than starTransform.Count
             {
                 i += 1;
+                print(i);
             }
-            else if (increase) //Change to decrease number
+            else  //num=max
             {
-                i -= 1;
-                increase = false;
+                i = 0;
+                print(i);
             }
-
-            if(!increase)    //prevent number going smaller than 0
-            {
-                i -= 1;
-            }else if (!increase && (i-1) == 0)//change to increase number
-            {
-                i += 1;
-                increase = true;
-            }
+            
+           
         }
         
         Debug.DrawLine(starTransforms[i].position, drawing, Color.white);

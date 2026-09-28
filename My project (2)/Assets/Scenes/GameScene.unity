@@ -2483,10 +2483,6 @@ MonoBehaviour:
   - {fileID: 1643329864}
   - {fileID: 795502857}
   - {fileID: 1311288639}
-  - {fileID: 1313632416}
-  - {fileID: 366221042}
-  - {fileID: 426582573}
-  - {fileID: 2257695664884323191}
   drawingTime: 0.5
 --- !u!4 &1573207886
 Transform:
