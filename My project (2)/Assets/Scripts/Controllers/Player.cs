@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,6 +43,8 @@ public class Player : MonoBehaviour
     public float decelerationTime=1.5f;
     public Vector3 pastVelocityDirection;
     public Vector3 pastVelocity;
+    public float RadiusSize;
+    public List<Vector3> points=new List<Vector3> { Vector3.zero, Vector3.up , Vector3.down};
 
     void Start()
     {
@@ -92,6 +95,13 @@ public class Player : MonoBehaviour
         DetectAstroids(2, asteroidTransforms);
         */
     }
+    //This function takes in points from world, then convert it to radians, and then draw lines in circle
+    //void DrawGreenHexigonAroundPlayer(float radius,<Vector3>pointsList)
+    //{
+    //    float angInRad = pointsList[0] * Mathf.Deg2Rad;
+    //    Vector3 newPoint = (Mathf.Cos(angInRad) * radius, Mathf.Sin(angInRad) * radius, 0);
+    //    Debug.DrawLine(transform.position, newPoint, Color.green,3);
+    //}
     //This method allows player to move player
     void PlayerMovenment()
     {   //Easy way, set the velocity to 0, then everytime in if condition,

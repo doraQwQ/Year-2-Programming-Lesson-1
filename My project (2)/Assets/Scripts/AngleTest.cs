@@ -45,18 +45,17 @@ public class AngleTest : MonoBehaviour
         float currentAngle = angles[index];
         float currentAngleInRadians = currentAngle * Mathf.Deg2Rad;
 
-        if (angles != null)
-        {
+        
             Vector3 point = new Vector3( Mathf.Cos(currentAngleInRadians) * radius,
                 Mathf.Sin(currentAngleInRadians) * radius, 0);
             if (Keyboard.current.spaceKey.isPressed||shiftProgress> shiftDuration)
             {
                 
-                if(index +1> angles.Count - 1)
+                if(index+1> angles.Count - 1)
                 {
                     index = 0;
                     shiftProgress = 0;
-                    Debug.Log("inside");
+                    Debug.Log(index);
                 }
                 else
                 {
@@ -68,7 +67,7 @@ public class AngleTest : MonoBehaviour
             }
             
             Debug.DrawLine(circlePos, point+circlePos, Color.white,3);
-        }
+        
         
         
     }
