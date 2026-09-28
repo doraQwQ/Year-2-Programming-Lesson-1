@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        angle += 2 * Time.deltaTime;
+        angle += 1 * Time.deltaTime;
         PlayerBombShield();
 
         if (currentAcceleration>= maxSpeed)
@@ -169,8 +169,8 @@ public class Player : MonoBehaviour
     void PlayerBombShield()
     {
         Vector3 location = transform.position;
-        locationX=location.x+ Mathf.Cos(angle)*2;
-        locationY=location.y + Mathf.Sin(angle)*2 ;
+        locationX=location.x+ Mathf.Cos(angle)*1.5f;
+        locationY=location.y + Mathf.Sin(angle)*1.5f ;
         if (bombInstansTwo == null)
         {
             bombInstansTwo = Instantiate(bombPrefab, new Vector3(locationX, locationY, 0), Quaternion.identity);
