@@ -30,7 +30,9 @@ public class AngleTest : MonoBehaviour
             {
                 angles.Add((int)Random.Range(0f, 360f));
             }
+
         }
+        angles.Sort();
     }
 
     // Update is called once per frame
@@ -42,13 +44,8 @@ public class AngleTest : MonoBehaviour
     //This function draws a line to the points, and changes when player press space or wait for seconds
     void DrawCircle()
     {
-        float currentAngle = angles[index];
-        float currentAngleInRadians = currentAngle * Mathf.Deg2Rad;
-
-        
-            Vector3 point = new Vector3( Mathf.Cos(currentAngleInRadians) * radius,
-                Mathf.Sin(currentAngleInRadians) * radius, 0);
-            if (Keyboard.current.spaceKey.isPressed||shiftProgress> shiftDuration)
+       
+            if (Keyboard.current.spaceKey.wasPressedThisFrame || shiftProgress> shiftDuration)
             {
                 
                 if(index+1> angles.Count - 1)
@@ -65,8 +62,13 @@ public class AngleTest : MonoBehaviour
                 }
                 
             }
-            
-            Debug.DrawLine(circlePos, point+circlePos, Color.white,3);
+        float currentAngle = angles[index];
+        float currentAngleInRadians = currentAngle * Mathf.Deg2Rad;
+
+
+        Vector3 point = new Vector3(Mathf.Cos(currentAngleInRadians) * radius,
+            Mathf.Sin(currentAngleInRadians) * radius, 0);
+        Debug.DrawLine(circlePos, point+circlePos, Color.white,0.1f);
         
         
         
