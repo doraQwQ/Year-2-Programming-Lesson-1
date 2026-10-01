@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        DrawGreenHexigonAroundPlayer(2, 2);
         angle += 1 * Time.deltaTime;
         PlayerBombShield();
 
@@ -95,14 +96,25 @@ public class Player : MonoBehaviour
         DetectAstroids(2, asteroidTransforms);
         */
     }
-    //This function takes in points from world, then convert it to radians, and then draw lines in circle
+    //This function takes in num of points, which decide the green hexagon sides, and shields player
+    //then when enemy enters it turn red 
     void DrawGreenHexigonAroundPlayer(float radius,int points)
     {
-        List<Vector3> PointList= new List<Vector3>();
-        float angInRad = points * Mathf.Deg2Rad;
-        Vector3 newPoint = new Vector3(Mathf.Cos(angInRad) * radius, Mathf.Sin(angInRad) * radius, 0);
-        Debug.DrawLine(transform.position, newPoint, Color.green, 3);
+        List<Vector3> RadiusPointList= new List<Vector3>();
+        for (int i = 0; i < points - 1; i++)
+        {
+            float a = Random.Range(0,360);
+            float angInRad = a * Mathf.Deg2Rad;
+            Vector3 newPoint = new Vector3(Mathf.Cos(angInRad) * radius, Mathf.Sin(angInRad) * radius, 0);
+            RadiusPointList.Add(newPoint);
+        }
+        for (int t = 0; t < RadiusPointList.Count - 2; t++)
+        {
+            Debug.DrawLine(RadiusPointList[t]+ transform.position, RadiusPointList[t+1]+ transform.position, Color.green, 3f);
+        }
+       
     }
+
     //This method allows player to move player
     void PlayerMovenment()
     {   //Easy way, set the velocity to 0, then everytime in if condition,
