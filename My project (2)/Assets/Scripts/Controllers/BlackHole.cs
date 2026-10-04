@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BlackHole : MonoBehaviour
 {
-    public flot distBetweenObject = 0;
+    public float distBetweenObject = 0;
     public GameObject blackHole;
     public Transform enemyTransform;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,6 +18,6 @@ public class BlackHole : MonoBehaviour
     }
     void DetectDistance()
     {
-        if( )
+        
     }
 }

@@ -64,6 +64,10 @@ public class Player : MonoBehaviour
             currentAcceleration = maxSpeed;
         }
         PlayerMovenment();
+        if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            RandomTeleportWithinDistance(2);
+        }
         /*
         if (Input.GetKeyDown(KeyCode.B))    //spawn bomb at a random place near player
         {  //this code ensures that the bomb is not spawning at player
@@ -114,7 +118,14 @@ public class Player : MonoBehaviour
         }
        
     }
-
+    void RandomTeleportWithinDistance(float radius)
+    {
+        float degree = Random.Range(0f, 360f);
+        float degToRad = degree*Mathf.Deg2Rad;
+        
+        Vector3 newLocation = new Vector3( Mathf.Cos(degToRad) * radius, Mathf.Sin(degToRad) * radius, 0);
+        transform.position = newLocation+transform.position;
+    }
     //This method allows player to move player
     void PlayerMovenment()
     {   //Easy way, set the velocity to 0, then everytime in if condition,
