@@ -38,7 +38,7 @@ public class Looker : MonoBehaviour
         //Bonus 
         //Looker should look at the closest object in list
         float prevShortestDis = 100000;
-        int prevIndex;
+        int prevIndex= 10000;
         for(int i= 0; i< looker.Count - 1; i++)
         {
             float shortDis = Vector3.Distance(transform.position, looker[i].transform.position);

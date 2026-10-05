@@ -28,4 +28,9 @@ public class AngleWk5 : MonoBehaviour
         float angle = Mathf.Atan2(Vvector.y, Vvector.x)* Mathf.Rad2Deg;
         return angle-90f;
     }
+    public static float VectorDot(Vector3 a, Vector3 b)
+    {
+        float dotProduct = (a.x*b.x + a.y + b.y);
+        return dotProduct;
+    }
 }
