@@ -26,6 +26,6 @@ public class AngleWk5 : MonoBehaviour
     public static float VectorToAngle(Vector3 Vvector)
     {
         float angle = Mathf.Atan2(Vvector.y, Vvector.x)* Mathf.Rad2Deg;
-        return angle;
+        return angle-90f;
     }
 }
