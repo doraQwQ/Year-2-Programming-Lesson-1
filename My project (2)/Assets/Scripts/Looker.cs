@@ -19,22 +19,26 @@ public class Looker : MonoBehaviour
 
     void LooksAtElements()
     {
-       float angle = AngleWk5.VectorToAngle(looker[index].transform.position);
         
-        transform.eulerAngles.z = angle;
+       float angle = AngleWk5.VectorToAngle(looker[index].transform.position - transform.position);
+       
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,angle);
+
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            if (index + 1 > looker.Count - 1)
+            index += 1;
+            if (index  > looker.Count-1)
             {
                 index = 0;
             }
-            index += 1;
+            
         }
         //Debug.Log();
 
         //Bonus 
+        //Looker should look at the closest object in list
         float prevShortestDis = 100000;
-        float prevIndex;
+        int prevIndex;
         for(int i= 0; i< looker.Count - 1; i++)
         {
             float shortDis = Vector3.Distance(transform.position, looker[i].transform.position);
@@ -44,6 +48,9 @@ public class Looker : MonoBehaviour
                 prevIndex = i;
             }
         }
-        //Make the looker looks at the rectange which is the index. 
+        //Make the looker looks at the rectangle which is the index. 
+        angle = AngleWk5.VectorToAngle(looker[prevIndex].transform.position - transform.position);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
+
     }
 }
