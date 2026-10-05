@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DotProductTest : MonoBehaviour
 {
@@ -13,7 +14,14 @@ public class DotProductTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 redVector;
-        Vector3 blueVector;
+        Vector3 redVector = new Vector3(Mathf.Cos(redAngle*Mathf.Deg2Rad),Mathf.Sin(redAngle*Mathf.Deg2Rad),0);
+        Vector3 blueVector= new Vector3(Mathf.Cos(blueAngle * Mathf.Deg2Rad), Mathf.Sin(blueAngle * Mathf.Deg2Rad), 0);
+        Debug.DrawLine(Vector3.zero, blueVector, Color.blue);
+        Debug.DrawLine(Vector3.zero, redVector, Color.red);
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Debug.Log(AngleWk5.VectorDot(redVector, blueVector));
+        }
+        
     }
 }
