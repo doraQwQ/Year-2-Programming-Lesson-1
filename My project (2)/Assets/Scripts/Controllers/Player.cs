@@ -8,7 +8,9 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    
+    public GameObject powerUps; //hw 2 stuffs
+    List <GameObject> powerups=new List<GameObject>();
+
     public List<Transform> asteroidTransforms;
     public Transform enemyTransform;
     public GameObject bombPrefab;
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
     public List<Vector3> points=new List<Vector3> { Vector3.zero, Vector3.up , Vector3.down};
 
     public List<Vector3> anglesInRad;
-    public List<int> numbers;
+    public List<Vector3> pointsLocation;
     void Start()
     {
         currentAcceleration = maxSpeed / accelerationTime;
@@ -57,7 +59,8 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        EnemyRadar(3, 6);
+        SpawnPowerups(2, 3);
+        //EnemyRadar(3, 6);
         //DrawGreenHexigonAroundPlayer(2, 2);
         angle += 1 * Time.deltaTime;
         PlayerBombShield();
@@ -121,6 +124,28 @@ public class Player : MonoBehaviour
         }
        
     }
+    //HW 2
+    public void SpawnPowerups(float radius, int numOfPowerups)
+    {
+        pointsLocation.Clear();
+        if(powerups != null)
+        {
+            powerups.Clear();
+        }
+        
+        for(int i = 0; i < numOfPowerups; i++) {    //getting the corrdinate from angle to radius to vector3 and set it near player transform
+            float angle = 360 / numOfPowerups*(i+1)*Mathf.Deg2Rad;
+            Vector3 newPoints = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
+            pointsLocation.Add(newPoints+transform.position);
+        }
+        for(int o = 0; o < numOfPowerups; o++)
+        {
+            GameObject powerUpItems = Instantiate(powerUps, pointsLocation[o], Quaternion.identity);
+            powerups.Add(powerUpItems);
+        }
+    }
+
+    //HW 1 
     public void EnemyRadar(float radius, int circlePoints)
     {
         anglesInRad.Clear();
@@ -138,11 +163,11 @@ public class Player : MonoBehaviour
         }
         for (int a = 0; a <= circlePoints - 1; a++) //Drawing the lines 
         {
-            if (a == circlePoints - 1)  //Connecting last to first
+            if (a == circlePoints - 1)  //Connecting last line to first line
             {
                 Debug.DrawLine(anglesInRad[circlePoints - 1], anglesInRad[0], colors);
             }
-            else
+            else                        //Connecting the rest of lines
             {
                 Debug.DrawLine(anglesInRad[a], anglesInRad[a + 1], colors);
             }
