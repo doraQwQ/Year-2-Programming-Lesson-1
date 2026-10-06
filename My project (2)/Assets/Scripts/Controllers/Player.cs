@@ -131,26 +131,22 @@ public class Player : MonoBehaviour
             Vector3 shieldLocation = new Vector3(Mathf.Cos(angleInRad) * radius, Mathf.Sin(angleInRad) * radius, 0);
             anglesInRad.Add(shieldLocation+ transform.position);
         }
-        if (Vector3.Distance(transform.position, enemyTransform.position) <= radius)  //enemies inside
+        Color colors= Color.green;
+        if (Vector3.Distance(transform.position, enemyTransform.position) <= radius)  //enemies inside change color
         {
-            for(int a = 0; a <= circlePoints-1; a++)
-            {
-                if (a == circlePoints)  //Connecting last to first
-                {
-                    Debug.DrawLine(anglesInRad[circlePoints-1], anglesInRad[0], Color.red);
-                }
-                else
-                {
-                    Debug.DrawLine(anglesInRad[a], anglesInRad[a + 1], Color.red);
-                }
-               
-            }
-        }else
+            colors = colors.red;
+        }
+        for (int a = 0; a <= circlePoints - 1; a++) //Drawing the lines 
         {
-            for (int b = 0; b <= circlePoints-1; b++)
+            if (a == circlePoints - 1)  //Connecting last to first
             {
-                Debug.DrawLine(anglesInRad[b], anglesInRad[b + 1], Color.green);
+                Debug.DrawLine(anglesInRad[circlePoints - 1], anglesInRad[0], colors);
             }
+            else
+            {
+                Debug.DrawLine(anglesInRad[a], anglesInRad[a + 1], colors);
+            }
+
         }
 
     }
