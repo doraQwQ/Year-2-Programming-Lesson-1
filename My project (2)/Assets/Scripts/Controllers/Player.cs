@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
     public float RadiusSize;
     public List<Vector3> points=new List<Vector3> { Vector3.zero, Vector3.up , Vector3.down};
 
+    public List<Vector3> anglesInRad;
+    public List<int> numbers;
     void Start()
     {
         currentAcceleration = maxSpeed / accelerationTime;
@@ -55,7 +57,8 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        DrawGreenHexigonAroundPlayer(2, 2);
+        EnemyRadar(3, 6);
+        //DrawGreenHexigonAroundPlayer(2, 2);
         angle += 1 * Time.deltaTime;
         PlayerBombShield();
 
@@ -117,6 +120,39 @@ public class Player : MonoBehaviour
             Debug.DrawLine(RadiusPointList[t]+ transform.position, RadiusPointList[t+1]+ transform.position, Color.green, 3f);
         }
        
+    }
+    public void EnemyRadar(float radius, int circlePoints)
+    {
+        anglesInRad.Clear();
+        float times = 360 / circlePoints;
+        for(int i = 1 ; i <= circlePoints; i++) //Generate points,convert to rad, calculate location, store in list
+        {
+            float angleInRad = times * i * Mathf.Deg2Rad;
+            Vector3 shieldLocation = new Vector3(Mathf.Cos(angleInRad) * radius, Mathf.Sin(angleInRad) * radius, 0);
+            anglesInRad.Add(shieldLocation+ transform.position);
+        }
+        if (Vector3.Distance(transform.position, enemyTransform.position) <= radius)  //enemies inside
+        {
+            for(int a = 0; a <= circlePoints-1; a++)
+            {
+                if (a == circlePoints)  //Connecting last to first
+                {
+                    Debug.DrawLine(anglesInRad[circlePoints-1], anglesInRad[0], Color.red);
+                }
+                else
+                {
+                    Debug.DrawLine(anglesInRad[a], anglesInRad[a + 1], Color.red);
+                }
+               
+            }
+        }else
+        {
+            for (int b = 0; b <= circlePoints-1; b++)
+            {
+                Debug.DrawLine(anglesInRad[b], anglesInRad[b + 1], Color.green);
+            }
+        }
+
     }
     void RandomTeleportWithinDistance(float radius)
     {
