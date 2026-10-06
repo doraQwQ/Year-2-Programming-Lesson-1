@@ -130,7 +130,10 @@ public class Player : MonoBehaviour
         pointsLocation.Clear();
         if(powerups != null)
         {
-            powerups.Clear();
+            for(int j = 0; j < powerups.Count - 1; j++)
+            {
+                Destroy(powerups[j]);
+            }
         }
         
         for(int i = 0; i < numOfPowerups; i++) {    //getting the corrdinate from angle to radius to vector3 and set it near player transform

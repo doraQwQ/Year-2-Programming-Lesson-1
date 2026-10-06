@@ -3316,6 +3316,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+      propertyPath: powerUps
+      value: 
+      objectReference: {fileID: 1567431237259788, guid: 03444c0c59102ba46bb1a8b5a1b0a810, type: 3}
+    - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: warpRatio
       value: 0.1
       objectReference: {fileID: 0}
@@ -3541,6 +3545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0a69e04bb97d348860bfc07592979d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackHole
+  distBetweenObject: 0
+  blackHole: {fileID: 0}
+  enemyTransform: {fileID: 0}
 --- !u!1001 &2097146127
 PrefabInstance:
   m_ObjectHideFlags: 0
