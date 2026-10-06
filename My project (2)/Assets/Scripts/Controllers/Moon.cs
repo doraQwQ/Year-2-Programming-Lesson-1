@@ -31,7 +31,8 @@ public class Moon : MonoBehaviour
             moon.transform.position = newPoint + target.position;
             angle += angleToInc * Time.deltaTime;
         }
-        
 
+        Debug.Log(moon!=null);
+        Debug.Log(newPoint);
     }
 }
