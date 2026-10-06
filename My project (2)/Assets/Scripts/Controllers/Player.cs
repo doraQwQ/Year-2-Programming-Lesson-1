@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
         Color colors= Color.green;
         if (Vector3.Distance(transform.position, enemyTransform.position) <= radius)  //enemies inside change color
         {
-            colors = colors.red;
+            colors = Color.red;
         }
         for (int a = 0; a <= circlePoints - 1; a++) //Drawing the lines 
         {
