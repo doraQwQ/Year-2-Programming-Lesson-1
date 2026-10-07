@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Moon : MonoBehaviour
 {
-    public GameObject objects;
-    public Transform star;
+    public GameObject moonPrefab;
+    public Transform spawnMoon;
     float angle = 0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,7 +14,7 @@ public class Moon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        OrbitalMotion(2, 50, star);
+        OrbitalMotion(2, 50, spawnMoon);
     }
     public void OrbitalMotion(float radius,float speed, Transform target)
     {
@@ -22,16 +22,17 @@ public class Moon : MonoBehaviour
         
         float angleInRad = angle * Mathf.Deg2Rad;
         Vector3 newPoint= new Vector3(Mathf.Cos(angleInRad)*radius,Mathf.Sin(angleInRad)*radius,0);
-        if (objects == null)
+        if (spawnMoon == null)  //if there is nothing, spawn a moon
         {
-            objects = Instantiate(objects, newPoint + target.position, Quaternion.identity);
+           GameObject newMoon = Instantiate(moonPrefab, newPoint + target.position, Quaternion.identity);
+           spawnMoon = newMoon.transform;
         }
-       
-        objects.transform.position = newPoint + target.position;
+
+        spawnMoon.transform.position = newPoint + target.position;
         angle += angleToInc * Time.deltaTime;
         
 
-        Debug.Log(objects != null);
+        Debug.Log(spawnMoon != null);
         Debug.Log(newPoint);
     }
 }
