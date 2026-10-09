@@ -189,6 +189,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
+--- !u!1 &86758886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1742679311805458, guid: abc125f00ae369940b2c5c0275186637, type: 3}
+  m_PrefabInstance: {fileID: 2030902519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &90515573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -385,6 +390,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
+--- !u!1 &294285873 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1409900303673908, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
+  m_PrefabInstance: {fileID: 925799359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &305519872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3541,6 +3551,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0a69e04bb97d348860bfc07592979d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackHole
+  distBetweenObject: 3
+  blackHole: {fileID: 2036726964}
+  enemy: {fileID: 294285873}
+  player: {fileID: 86758886}
+  star: {fileID: 1573207884}
+  asteroids: {fileID: 1088617404}
 --- !u!1001 &2097146127
 PrefabInstance:
   m_ObjectHideFlags: 0
