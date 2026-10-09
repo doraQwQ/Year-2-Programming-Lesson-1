@@ -9,6 +9,7 @@ public class BlackHole : MonoBehaviour
     public GameObject player;
     public GameObject star;
     public GameObject asteroids;
+    float radius = 5;
     List<GameObject> thingsTooClose = new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,5 +51,14 @@ public class BlackHole : MonoBehaviour
             thingsTooClose.Add(asteroids);
         }
 
+        //if (thingsTooClose != null)  //Suck in item.
+        //{
+        //    for (int i = 0; i < thingsTooClose.Count; i++)
+        //    {
+                
+        //    }
+        //    //Using math formula to find the angle
+        //    //Using the angle to 
+        //}
     }
 }
