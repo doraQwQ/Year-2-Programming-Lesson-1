@@ -3484,11 +3484,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5292342587599028237, guid: f3c5e990c8a9dad4c8d7eed09da5fec4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.371838
+      value: 3.74
       objectReference: {fileID: 0}
     - target: {fileID: 5292342587599028237, guid: f3c5e990c8a9dad4c8d7eed09da5fec4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.206726
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 5292342587599028237, guid: f3c5e990c8a9dad4c8d7eed09da5fec4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3557,6 +3557,7 @@ MonoBehaviour:
   player: {fileID: 86758886}
   star: {fileID: 1573207884}
   asteroids: {fileID: 1088617404}
+  rotationSpeed: 60
 --- !u!1001 &2097146127
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
         */
     }
     //This function takes in num of points, which decide the green hexagon sides, and shields player
-    //then when enemy enters it turn red 
+    //when enemy enters it turn red 
     void DrawGreenHexigonAroundPlayer(float radius,int points)
     {
         List<Vector3> RadiusPointList= new List<Vector3>();

@@ -9,8 +9,11 @@ public class BlackHole : MonoBehaviour
     public GameObject player;
     public GameObject star;
     public GameObject asteroids;
-    float radius = 5;
+    public float rotationSpeed = 60;
+    float radiusToSuckIn = 5;
+    float movingSpeed=0.5;
     List<GameObject> thingsTooClose = new List<GameObject>();
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,7 +27,7 @@ public class BlackHole : MonoBehaviour
     }
     void DetectDistance()
     {
-    
+        thingsTooClose.Clear();
         if (enemy.transform == null)        //in case there is no enemy
         { 
             return;
@@ -51,14 +54,19 @@ public class BlackHole : MonoBehaviour
             thingsTooClose.Add(asteroids);
         }
 
-        //if (thingsTooClose != null)  //Suck in item.
-        //{
-        //    for (int i = 0; i < thingsTooClose.Count; i++)
-        //    {
-                
-        //    }
-        //    //Using math formula to find the angle
-        //    //Using the angle to 
-        //}
+        
+        if (thingsTooClose != null)  //Suck in item.
+        {
+            for (int i = 0; i < thingsTooClose.Count; i++)
+            {
+                Vector3 newRotation = thingsTooClose[i].transform.eulerAngles + Vector3.forward * rotationSpeed*Time.deltaTime;
+                thingsTooClose[i].transform.eulerAngles = newRotation;
+                Vector3 DistWithBlackHole = newRotation.position - transform.position;
+                float tempAngle = Mathf.Atan2.DistWithBlackHole(DistWithBlackHole.y, DistWithBlackHole.x);
+                float newPos = thingsTooClose[i].transform
+            }
+            //Using math formula to find the angle
+            //Using the angle to 
+        }
     }
 }
