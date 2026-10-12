@@ -9,9 +9,11 @@ public class BlackHole : MonoBehaviour
     public GameObject player;
     public GameObject star;
     public GameObject asteroids;
-    public float rotationSpeed = 60;
-    float radiusToSuckIn = 5;
-    float movingSpeed=0.5;
+    public float rotationSpeed = 60f;
+    float radiusToSuckIn = 5f;
+    float movingSpeed=0.5f;
+    float shortenAmount=0.15f;
+    float destoryDis = 0.01f;
     List<GameObject> thingsTooClose = new List<GameObject>();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +38,26 @@ public class BlackHole : MonoBehaviour
         float distWithPlayer = Vector3.Distance(blackHole.transform.position, player.transform.position);
         float distWithStar = Vector3.Distance(blackHole.transform.position, star.transform.position);
         float distWithAsteroids = Vector3.Distance(blackHole.transform.position, asteroids.transform.position);
-        
+
+        //If the things are too close to blackhole, destroy them
+        if (distWithEnemy < destoryDis)
+        {
+            Destroy(enemy.transform);
+        }
+        if(distWithPlayer< destoryDis)
+        {
+            Destroy(player.transform);
+        }
+        if (distWithStar < destoryDis)
+        {
+            Destroy(star.transform);
+        }
+        if(distWithAsteroids< destoryDis)
+        {
+            Destroy(asteroids.transform);
+        }
+
+        //If the things are within blackhole distance and not at center of blackhole
         if (distWithEnemy < distBetweenObject)
         {
             thingsTooClose.Add(enemy);
@@ -59,14 +80,32 @@ public class BlackHole : MonoBehaviour
         {
             for (int i = 0; i < thingsTooClose.Count; i++)
             {
-                Vector3 newRotation = thingsTooClose[i].transform.eulerAngles + Vector3.forward * rotationSpeed*Time.deltaTime;
-                thingsTooClose[i].transform.eulerAngles = newRotation;
-                Vector3 DistWithBlackHole = newRotation.position - transform.position;
-                float tempAngle = Mathf.Atan2.DistWithBlackHole(DistWithBlackHole.y, DistWithBlackHole.x);
-                float newPos = thingsTooClose[i].transform
+                Transform tempVector = thingsTooClose[i].transform;
+
+                //Changing the rotation of the sucked in object
+                Vector3 newRotation = tempVector.eulerAngles + Vector3.forward * rotationSpeed * Time.deltaTime;
+
+                //Assigning it
+                tempVector.eulerAngles = newRotation;
+                //--------------------------------------------
+                //Changing position part
+
+                //use the resultant vector
+                Vector3 DistWithBlackHole = tempVector.position - transform.position;
+
+                //Gets the current vector angle relative to blackhole
+                float tempAngle = Mathf.Atan2(DistWithBlackHole.y, DistWithBlackHole.x)*Mathf.Rad2Deg;
+
+                //Gets the radius and shrunk it
+                float currentRadius = DistWithBlackHole.magnitude - shortenAmount*Time.deltaTime; 
+                
+                //Changing the position to be more clockwise
+                tempAngle -= movingSpeed * Time.deltaTime;
+                tempAngle = tempAngle * Mathf.Deg2Rad; //To radians
+                Vector3 newPos = new Vector3(Mathf.Cos(tempAngle) * currentRadius, Mathf.Sin(tempAngle) * currentRadius, DistWithBlackHole.z);
+                thingsTooClose[i].transform.position = newPos+transform.position;
             }
-            //Using math formula to find the angle
-            //Using the angle to 
+            
         }
     }
 }
