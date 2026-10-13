@@ -10,7 +10,6 @@ public class BlackHole : MonoBehaviour
     public GameObject star;
     public GameObject asteroids;
     public float rotationSpeed = 60f;
-    float radiusToSuckIn = 5f;
     float movingSpeed=0.5f;
     float shortenAmount=0.15f;
     float destoryDis = 0.01f;
@@ -40,27 +39,28 @@ public class BlackHole : MonoBehaviour
         float distWithAsteroids = Vector3.Distance(blackHole.transform.position, asteroids.transform.position);
 
         //If the things are too close to blackhole, destroy them
-        if (distWithEnemy < destoryDis)
+        if (distWithEnemy <= destoryDis)
         {
-            Destroy(enemy.transform);
+            Destroy(enemy);
         }
-        if(distWithPlayer< destoryDis)
+        if(distWithPlayer<= destoryDis)
         {
-            Destroy(player.transform);
+            Destroy(player);
         }
-        if (distWithStar < destoryDis)
+        if (distWithStar <= destoryDis)
         {
-            Destroy(star.transform);
+            Destroy(star);
         }
-        if(distWithAsteroids< destoryDis)
+        if(distWithAsteroids<= destoryDis)
         {
-            Destroy(asteroids.transform);
+            Destroy(asteroids);
         }
 
         //If the things are within blackhole distance and not at center of blackhole
         if (distWithEnemy < distBetweenObject)
         {
             thingsTooClose.Add(enemy);
+            
         }
         if(distWithPlayer < distBetweenObject)
         {
@@ -94,16 +94,16 @@ public class BlackHole : MonoBehaviour
                 Vector3 DistWithBlackHole = tempVector.position - transform.position;
 
                 //Gets the current vector angle relative to blackhole
-                float tempAngle = Mathf.Atan2(DistWithBlackHole.y, DistWithBlackHole.x)*Mathf.Rad2Deg;
+                float tempAngle = Mathf.Atan2(DistWithBlackHole.y, DistWithBlackHole.x)* Mathf.Rad2Deg;
 
                 //Gets the radius and shrunk it
-                float currentRadius = DistWithBlackHole.magnitude - shortenAmount*Time.deltaTime; 
+                float currentRadius = DistWithBlackHole.magnitude - shortenAmount* Time.deltaTime; 
                 
                 //Changing the position to be more clockwise
                 tempAngle -= movingSpeed * Time.deltaTime;
-                tempAngle = tempAngle * Mathf.Deg2Rad; //To radians
+                tempAngle *= Mathf.Deg2Rad; //To radians
                 Vector3 newPos = new Vector3(Mathf.Cos(tempAngle) * currentRadius, Mathf.Sin(tempAngle) * currentRadius, DistWithBlackHole.z);
-                thingsTooClose[i].transform.position = newPos+transform.position;
+                thingsTooClose[i].transform.position = newPos;
             }
             
         }
