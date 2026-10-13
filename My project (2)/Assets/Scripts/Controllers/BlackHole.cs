@@ -59,8 +59,7 @@ public class BlackHole : MonoBehaviour
         //If the things are within blackhole distance and not at center of blackhole
         if (distWithEnemy < distBetweenObject)
         {
-            thingsTooClose.Add(enemy);
-            
+            thingsTooClose.Add(enemy);          
         }
         if(distWithPlayer < distBetweenObject)
         {
@@ -78,16 +77,20 @@ public class BlackHole : MonoBehaviour
         
         if (thingsTooClose != null)  //Suck in item.
         {
+            
             for (int i = 0; i < thingsTooClose.Count; i++)
             {
                 Transform tempVector = thingsTooClose[i].transform;
 
                 //Changing the rotation of the sucked in object
-                Vector3 newRotation = tempVector.eulerAngles + Vector3.forward * rotationSpeed * Time.deltaTime;
+                Vector3 newRotation = tempVector.eulerAngles - Vector3.forward * rotationSpeed * Time.deltaTime;
 
                 //Assigning it
                 tempVector.eulerAngles = newRotation;
+                Debug.Log(newRotation);
+                
                 //--------------------------------------------
+                /*
                 //Changing position part
 
                 //use the resultant vector
@@ -104,6 +107,8 @@ public class BlackHole : MonoBehaviour
                 tempAngle *= Mathf.Deg2Rad; //To radians
                 Vector3 newPos = new Vector3(Mathf.Cos(tempAngle) * currentRadius, Mathf.Sin(tempAngle) * currentRadius, DistWithBlackHole.z);
                 thingsTooClose[i].transform.position = newPos;
+                */
+                
             }
             
         }
