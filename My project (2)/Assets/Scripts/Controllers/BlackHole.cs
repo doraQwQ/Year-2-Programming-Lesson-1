@@ -10,7 +10,7 @@ public class BlackHole : MonoBehaviour
     public GameObject star;
     public GameObject asteroids;
     public float rotationSpeed = 60f;
-    float movingSpeed=0.5f;
+    float movingSpeed=30f;
     float shortenAmount=0.15f;
     float destoryDis = 0.01f;
     List<GameObject> thingsTooClose = new List<GameObject>();
@@ -79,8 +79,11 @@ public class BlackHole : MonoBehaviour
         {
             
             for (int i = 0; i < thingsTooClose.Count; i++)
+
             {
                 Transform tempVector = thingsTooClose[i].transform;
+                /*
+                
 
                 //Changing the rotation of the sucked in object
                 Vector3 newRotation = tempVector.eulerAngles - Vector3.forward * rotationSpeed * Time.deltaTime;
@@ -88,26 +91,33 @@ public class BlackHole : MonoBehaviour
                 //Assigning it
                 tempVector.eulerAngles = newRotation;
                 Debug.Log(newRotation);
-                
+                */
                 //--------------------------------------------
-                /*
+
                 //Changing position part
 
                 //use the resultant vector
                 Vector3 DistWithBlackHole = tempVector.position - transform.position;
 
+                print("initial position: " + tempVector.position);
+
                 //Gets the current vector angle relative to blackhole
                 float tempAngle = Mathf.Atan2(DistWithBlackHole.y, DistWithBlackHole.x)* Mathf.Rad2Deg;
+                print("temp angle: " + tempAngle);
 
                 //Gets the radius and shrunk it
-                float currentRadius = DistWithBlackHole.magnitude - shortenAmount* Time.deltaTime; 
+                float currentRadius = DistWithBlackHole.magnitude - shortenAmount* Time.deltaTime;
+                print("currentradius: " + currentRadius);
                 
                 //Changing the position to be more clockwise
                 tempAngle -= movingSpeed * Time.deltaTime;
                 tempAngle *= Mathf.Deg2Rad; //To radians
+                print($"final angle: {tempAngle * Mathf.Rad2Deg}");
                 Vector3 newPos = new Vector3(Mathf.Cos(tempAngle) * currentRadius, Mathf.Sin(tempAngle) * currentRadius, DistWithBlackHole.z);
-                thingsTooClose[i].transform.position = newPos;
-                */
+                //Vector3 newPos = new Vector3(Mathf.Cos(tempAngle), Mathf.Sin(tempAngle), 0);
+                thingsTooClose[i].transform.position = newPos+transform.position;
+                print("newPos: " + newPos);
+                
                 
             }
             
