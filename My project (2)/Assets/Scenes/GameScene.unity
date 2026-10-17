@@ -3556,6 +3556,14 @@ MonoBehaviour:
   enemy: {fileID: 294285873}
   player: {fileID: 86758886}
   star: {fileID: 1573207884}
+  stars:
+  - {fileID: 5474742212950596557}
+  - {fileID: 426582572}
+  - {fileID: 366221041}
+  - {fileID: 1313632415}
+  - {fileID: 1643329863}
+  - {fileID: 795502856}
+  - {fileID: 1311288638}
   asteroids: {fileID: 1088617404}
   rotationSpeed: 60
 --- !u!1001 &2097146127
