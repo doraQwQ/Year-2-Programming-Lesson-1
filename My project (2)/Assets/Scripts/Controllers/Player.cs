@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     {
         DrawGreenHexigonAroundPlayer(2, 2);
         angle += 1 * Time.deltaTime;
-        PlayerBombShield();
+        //PlayerBombShield();
 
         if (currentAcceleration>= maxSpeed)
         {
@@ -324,6 +324,6 @@ public class Player : MonoBehaviour
         //Normalize = new Vector2(distance.x / magnitude.x, distance.y / magnitude.y);
         //transform.x=Normalize.x *0.2, Normalize.y * 0.2;
     }
-    //rEfrence https://discussions.unity.com/t/check-if-e-key-is-pressed-in-c/657221
+    //Reference https://discussions.unity.com/t/check-if-e-key-is-pressed-in-c/657221
     */
 }
