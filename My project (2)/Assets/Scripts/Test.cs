@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    public Rigidbody2D yeah;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -11,6 +12,8 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        yeah.angularVelocity += 30*Time.deltaTime;
+        /*
         Vector2 angles = new Vector2(-2, 0);
         Vector2 sizes = new Vector2(2, 2);
         RaycastHit2D check = BoxCast(transform.position, sizes, 0, Vector2.left, 3, 0, -Mathf.Infinity,Mathf.Infinity);
@@ -19,7 +22,8 @@ public class Test : MonoBehaviour
         {
             print(check.collider.gameObject.name);
         }
-        
+        */
+
     }
     //Playing around with box cast physic 2D
     public static RaycastHit2D BoxCast(Vector2 origin, Vector2 size, float angle, Vector2 direction, float distance, int layerMask, float minDepth, float maxDepth)
@@ -27,4 +31,5 @@ public class Test : MonoBehaviour
         return Physics2D.BoxCast(origin, size, angle, direction, distance, layerMask, minDepth, maxDepth);
 
     }
+    
 }
