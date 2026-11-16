@@ -1711,8 +1711,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1433354317}
   speed: 7
   time: 3
-  accleration: 0
-  playerSpeed: 0
+  maxSpeed: 8
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0

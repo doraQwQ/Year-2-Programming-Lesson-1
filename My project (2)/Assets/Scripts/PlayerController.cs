@@ -23,38 +23,40 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
-        
+    {     
         //The input from the player needs to be determined and then passed in the to the MovementUpdate which should
         //manage the actual movement of the character.
+
         Vector2 playerInput = new Vector2();
-        if (Keyboard.current.dKey.isPressed)
+
+        if (Keyboard.current.rightArrowKey.isPressed)
         {
-            playerInput.x += 1;
+            playerInput.x += 1f;
         }
-        if (Keyboard.current.aKey.isPressed)
+        if (Keyboard.current.leftArrowKey.isPressed)
         {
-            playerInput.x -= 1;
+            playerInput.x -= 1f;
         }
+        Debug.Log(playerInput.x);
         MovementUpdate(playerInput);
     }
 
     private void MovementUpdate(Vector2 playerInput)
     {
-        Vector3 newVelocity=rigidbody.linearVelocity;   //collision can affect linear velocity
+        Vector2 newVelocity=rigidbody.linearVelocity;   //collision can affect linear velocity
         if (playerInput.x != 0)
         {
-
+            newVelocity += playerInput.x* Vector2.right* accleration* Time.deltaTime;
         }
         else
         {
 
         }
-        rigidbody.linearVelocity = Vector3.right * playerInput.x*maxSpeed;
-        
-     
-            
+        rigidbody.linearVelocity = newVelocity;
+
+
+
+
 
     }
 
