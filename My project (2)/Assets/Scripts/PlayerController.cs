@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float time = 2f;
     private float accleration;
     public float maxSpeed = 8f;
+    private FacingDirection PreviousFacing=FacingDirection.right;
     public enum FacingDirection
     {
         left, right
@@ -37,7 +38,6 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.x -= 1f;
         }
-        Debug.Log(playerInput.x);
         MovementUpdate(playerInput);
     }
 
@@ -62,15 +62,43 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        return false;
+        //if it is walking, linear velocity will be a value;
+        if (rigidbody.linearVelocity.x > 0.01f|| rigidbody.linearVelocity.x < -0.01f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+     
     }
     public bool IsGrounded()
     {
-        return true;
+        bool hitGround = Physics2D.Raycast(transform.position, Vector2.down, 1f, 1);
+        if (hitGround)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     public FacingDirection GetFacingDirection()
-    {
-        return FacingDirection.left;
+    {  
+        //tried linear velocity, works at the start then false.
+        //YESSSS IT WORKED
+        if (Keyboard.current.rightArrowKey.isPressed)
+        {
+            PreviousFacing = FacingDirection.right;
+        }
+        if (Keyboard.current.leftArrowKey.isPressed)
+        {
+            PreviousFacing = FacingDirection.left;
+        }
+        return PreviousFacing;
     }
 }
