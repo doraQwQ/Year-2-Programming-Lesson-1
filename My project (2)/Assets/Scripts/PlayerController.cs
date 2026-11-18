@@ -75,8 +75,9 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
-        bool hitGround = Physics2D.Raycast(transform.position, Vector2.down, 1f, 1);
-        if (hitGround)
+        bool hitGroundLeft = Physics2D.Raycast(transform.position + new Vector3(-0.1f, 0,0), Vector2.down, 1f, 1);
+        bool hitGroundRight = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0,0), Vector2.down, 1f, 1);
+        if (hitGroundLeft&& hitGroundRight)
         {
             return true;
         }
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
-        
+
     }
 
     public FacingDirection GetFacingDirection()
