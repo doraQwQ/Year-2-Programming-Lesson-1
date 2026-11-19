@@ -1714,7 +1714,10 @@ MonoBehaviour:
   time: 3
   damping: 6
   maxSpeed: 6
-  rayLength: 1
+  rayLength: 0.67
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0

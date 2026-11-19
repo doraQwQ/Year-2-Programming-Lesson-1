@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     private float accleration;
     public float damping = 6f;
     public float maxSpeed = 14f;
-    public float rayLength = 1f;
+    public float rayLength = 0.67f;
+    public LayerMask groundLayer;
     private FacingDirection PreviousFacing=FacingDirection.right;
     public enum FacingDirection
     {
@@ -22,7 +23,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         accleration = maxSpeed / time;
-       
     }
 
     // Update is called once per frame
@@ -74,17 +74,17 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
-
-        RaycastHit2D hitGroundLeft = Physics2D.Raycast(transform.position + new Vector3(-0.1f, -0.6f,0), Vector2.down, rayLength, 5);
-        //RaycastHit2D hitGroundRight = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0,0), Vector2.down, rayLength, 5);
-        if (hitGroundLeft.collider != null)
+        RaycastHit2D hitGroundLeft = Physics2D.Raycast(transform.position + new Vector3(-0.2f, 0,0),
+            Vector2.down, rayLength, groundLayer);
+        RaycastHit2D hitGroundRight = Physics2D.Raycast(transform.position + new Vector3(0.2f, 0,0),
+            Vector2.down, rayLength, groundLayer);
+        if (hitGroundLeft&& hitGroundRight)
         {
-            print(hitGroundLeft.collider.name);
+            
             return true;
         }
         else
         {
-            print("False");
             return false;
         }
        
