@@ -1712,7 +1712,7 @@ MonoBehaviour:
   rigidbody: {fileID: 1433354317}
   speed: 7
   time: 3
-  damping: 2.8
+  damping: 6
   maxSpeed: 6
 --- !u!4 &1433354315
 Transform:

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 7f;
     public float time = 2f;
     private float accleration;
-    public float damping = 2.8f;
+    public float damping = 6f;
     public float maxSpeed = 14f;
     private FacingDirection PreviousFacing=FacingDirection.right;
     public enum FacingDirection
@@ -61,8 +61,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        //if it is walking, linear velocity will be a value;
-        if (rigidbody.linearVelocity.x > 0.01f|| rigidbody.linearVelocity.x < -0.01f)
+        if (Keyboard.current.rightArrowKey.isPressed|| Keyboard.current.leftArrowKey.isPressed)
         {
             return true;
         }
