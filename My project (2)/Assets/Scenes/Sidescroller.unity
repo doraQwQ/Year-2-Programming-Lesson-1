@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 1054579210}
   - component: {fileID: 1054579209}
   - component: {fileID: 1054579211}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: GroundTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1714,6 +1714,7 @@ MonoBehaviour:
   time: 3
   damping: 6
   maxSpeed: 6
+  rayLength: 1
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0
@@ -1806,7 +1807,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.054546237, y: -0.098183155}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1816,7 +1817,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8472707, y: 1.0654554}
   m_EdgeRadius: 0
 --- !u!1 &1598075209
 GameObject:

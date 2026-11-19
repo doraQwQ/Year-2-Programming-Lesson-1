@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private float accleration;
     public float damping = 6f;
     public float maxSpeed = 14f;
+    public float rayLength = 1f;
     private FacingDirection PreviousFacing=FacingDirection.right;
     public enum FacingDirection
     {
@@ -73,23 +74,26 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
-        bool hitGroundLeft = Physics2D.Raycast(transform.position + new Vector3(-0.1f, 0,0), Vector2.down, 1f, 1);
-        bool hitGroundRight = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0,0), Vector2.down, 1f, 1);
-        if (hitGroundLeft&& hitGroundRight)
+
+        RaycastHit2D hitGroundLeft = Physics2D.Raycast(transform.position + new Vector3(-0.1f, -0.6f,0), Vector2.down, rayLength, 5);
+        //RaycastHit2D hitGroundRight = Physics2D.Raycast(transform.position + new Vector3(0.1f, 0,0), Vector2.down, rayLength, 5);
+        if (hitGroundLeft.collider != null)
         {
+            print(hitGroundLeft.collider.name);
             return true;
         }
         else
         {
+            print("False");
             return false;
         }
-
+       
+        
     }
 
     public FacingDirection GetFacingDirection()
     {  
-        //tried linear velocity, works at the start then false.
-        //YESSSS IT WORKED
+        //tried linear velocity, but fails.
         if (Keyboard.current.rightArrowKey.isPressed)
         {
             PreviousFacing = FacingDirection.right;
