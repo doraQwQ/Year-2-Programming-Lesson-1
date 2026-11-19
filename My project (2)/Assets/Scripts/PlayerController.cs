@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 7f;
     public float time = 2f;
     private float accleration;
-    public float maxSpeed = 8f;
+    public float damping = 2.8f;
+    public float maxSpeed = 14f;
     private FacingDirection PreviousFacing=FacingDirection.right;
     public enum FacingDirection
     {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         accleration = maxSpeed / time;
+       
     }
 
     // Update is called once per frame
@@ -46,18 +48,15 @@ public class PlayerController : MonoBehaviour
         Vector2 newVelocity=rigidbody.linearVelocity;   //collision can affect linear velocity
         if (playerInput.x != 0)
         {
+            rigidbody.linearDamping = 0;    //reset the damping effect
             newVelocity += playerInput.x* Vector2.right* accleration* Time.deltaTime;
+            rigidbody.linearVelocity = newVelocity;
         }
         else
         {
-
+            rigidbody.linearDamping = damping; // applying friction to stop
         }
-        rigidbody.linearVelocity = newVelocity;
-
-
-
-
-
+        
     }
 
     public bool IsWalking()
