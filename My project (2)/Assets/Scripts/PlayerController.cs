@@ -6,15 +6,16 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float gravity = 3;
-    public float apexTime = 0.3f;
-    public float apexHeight = 1.5f;
+    public float apexTime = 0.7f;
+    public float apexHeight = 3f;
     private float jumpVelocity;
+    bool isJumping = false;
     public Rigidbody2D rigidbody;
     public float speed = 7f;
     public float time = 2f;
-    private float accleration;
+    public float accleration;
     public float damping = 6f;
-    public float maxSpeed = 14f;
+    public float maxSpeed = 6f;
     public float rayLength = 0.67f;
     public LayerMask groundLayer;
     private FacingDirection PreviousFacing=FacingDirection.right;
@@ -37,22 +38,20 @@ public class PlayerController : MonoBehaviour
 
         Vector2 playerInput = new Vector2();
 
-        if (Keyboard.current.rightArrowKey.isPressed)
+        if (Keyboard.current.rightArrowKey.isPressed || Keyboard.current.dKey.isPressed)
         {
             playerInput.x += 1f;
         }
-        if (Keyboard.current.leftArrowKey.isPressed)
+        if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.aKey.isPressed)
         {
             playerInput.x -= 1f;
         }
-        if (Keyboard.current.spaceKey.isPressed)
+        if((Keyboard.current.spaceKey.isPressed || Keyboard.current.upArrowKey.isPressed)
+            && IsGrounded())
         {
-            playerInput.y += 1;
+            isJumping = true;
         }
-        else//reset condition
-        {
-            playerInput.y = 0;
-        }
+       
         MovementUpdate(playerInput);
     }
 
@@ -63,21 +62,25 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.linearDamping = 0;    //reset the damping effect
             newVelocity += playerInput.x* Vector2.right* accleration* Time.deltaTime;
-            rigidbody.linearVelocity = newVelocity;
+         
         }
         else
         {
-            rigidbody.linearDamping = damping; // applying friction to stop
-        }
-        if (IsGrounded() && playerInput.y != 0)
-        {
-            gravity = -2*apexHeight /(apexTime * apexTime);
-            jumpVelocity = 2*apexHeight / apexTime;
-            Vector2 currentVelocity = new Vector2(rigidbody.linearVelocity.x, jumpVelocity);
-            rigidbody.linearVelocity= currentVelocity;
+            rigidbody.linearDamping = damping; //applying friction to stop
         }
 
-        
+        gravity = -2 * apexHeight / (apexTime * apexTime);
+        jumpVelocity = 2 * apexHeight / apexTime;
+        newVelocity.y += gravity * Time.deltaTime;
+        print("Enter");
+        if (isJumping)
+        {
+            print("Enter2");
+            newVelocity.y = jumpVelocity;
+            isJumping = false;
+        }
+        rigidbody.linearVelocity = newVelocity;
+
     }
 
     public bool IsWalking()
@@ -98,9 +101,9 @@ public class PlayerController : MonoBehaviour
             Vector2.down, rayLength, groundLayer);
         RaycastHit2D hitGroundRight = Physics2D.Raycast(transform.position + new Vector3(0.2f, 0,0),
             Vector2.down, rayLength, groundLayer);
+       
         if (hitGroundLeft&& hitGroundRight)
         {
-            
             return true;
         }
         else
