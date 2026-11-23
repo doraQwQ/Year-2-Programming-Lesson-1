@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public float gravity = 3;
+    public float apexTime = 0.3f;
+    public float apexHeight = 1.5f;
+    private float jumpVelocity;
     public Rigidbody2D rigidbody;
     public float speed = 7f;
     public float time = 2f;
@@ -41,6 +45,14 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.x -= 1f;
         }
+        if (Keyboard.current.spaceKey.isPressed)
+        {
+            playerInput.y += 1;
+        }
+        else//reset condition
+        {
+            playerInput.y = 0;
+        }
         MovementUpdate(playerInput);
     }
 
@@ -57,6 +69,14 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.linearDamping = damping; // applying friction to stop
         }
+        if (IsGrounded() && playerInput.y != 0)
+        {
+            gravity = -2*apexHeight /(apexTime * apexTime);
+            jumpVelocity = 2*apexHeight / apexTime;
+            Vector2 currentVelocity = new Vector2(rigidbody.linearVelocity.x, jumpVelocity);
+            rigidbody.linearVelocity= currentVelocity;
+        }
+
         
     }
 
